@@ -27,3 +27,34 @@ window.addEventListener('DOMContentLoaded', () => {
         scrollPos = currentTop;
     });
 })
+
+document.addEventListener('DOMContentLoaded', () => {
+    const blogForm = document.getElementById('blogForm');
+    const blogList = document.getElementById('blogList');
+
+    blogForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        
+        const title = document.getElementById('title').value;
+        const content = document.getElementById('content').value;
+
+        const blogItem = document.createElement('li');
+        blogItem.innerHTML = `
+            <h3>${title}</h3>
+            <p>${content}</p>
+            <button class="delete-btn">Delete</button>
+        `;
+
+        blogList.appendChild(blogItem);
+
+        document.getElementById('title').value = '';
+        document.getElementById('content').value = '';
+    });
+
+    blogList.addEventListener('click', function (e) {
+        if (e.target.classList.contains('delete-btn')) {
+            const blogItem = e.target.parentElement;
+            blogList.removeChild(blogItem);
+        }
+    });
+});
